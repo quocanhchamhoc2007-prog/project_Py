@@ -21,9 +21,15 @@ class User(Base):
     is_active = Column(Boolean, default=True, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
-    # Các mối quan hệ (Relationships)
+    # Relationships
     clubs_owned = relationship("Club", back_populates="owner")
     club_memberships = relationship(
         "ClubMember", back_populates="user", cascade="all, delete-orphan"
     )
-    assigned_activities = relationship("ClubActivity", back_populates="assignee")
+    
+    # Đã thêm foreign_keys="Activity.assignee_id" để chỉ rõ khóa ngoại
+    assigned_activities = relationship(
+        "Activity", 
+        back_populates="assignee",
+        foreign_keys="Activity.assignee_id"
+    )

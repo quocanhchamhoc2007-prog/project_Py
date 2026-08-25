@@ -18,9 +18,7 @@ def create_club(db: Session, club_in: ClubCreate, current_user: User) -> Club:
     )
     db.add(owner_member)
     db.commit()
-
     return new_club
-
 # xem danh sách nhóm 
 def get_my_clubs(
     db: Session, current_user: User, search: Optional[str] = None) -> List[Club]:
@@ -96,7 +94,6 @@ def delete_club(db: Session, club_id: int, current_user: User) -> None:
         )
         .first()
     )
-
     if not owner_check:
         raise HTTPException(
             status_code=403, detail="Chỉ OWNER mới có quyền xóa câu lạc bộ"
@@ -106,10 +103,7 @@ def delete_club(db: Session, club_id: int, current_user: User) -> None:
     db.commit()
 
 # thêm thành viên vào nhóm 
-def add_member(
-    db: Session, club_id: int, payload: AddMemberRequest, current_user: User
-) -> None:
-    
+def add_member(db: Session, club_id: int, payload: AddMemberRequest, current_user: User) -> None:
     club = db.query(Club).filter(Club.id == club_id).first()
     if not club:
         raise HTTPException(status_code=404, detail="Câu lạc bộ không tồn tại")

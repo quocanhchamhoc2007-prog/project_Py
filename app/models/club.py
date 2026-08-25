@@ -23,8 +23,9 @@ class Club(Base):
     members = relationship(
         "ClubMember", back_populates="club", cascade="all, delete-orphan"
     )
+    # ĐÃ SỬA: Thay "ClubActivity" bằng "Activity"
     activities = relationship(
-        "ClubActivity", back_populates="club", cascade="all, delete-orphan"
+        "Activity", back_populates="club", cascade="all, delete-orphan"
     )
 
 
