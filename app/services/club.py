@@ -26,7 +26,6 @@ def get_my_clubs(
 
     if search:
         query = query.filter(Club.name.ilike(f"%{search.strip()}%"))
-
     return query.all()
 
 # xem thông tin chi tiết một nhóm 
